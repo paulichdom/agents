@@ -18,7 +18,12 @@ tables = list_tables()
 prompt = ChatPromptTemplate(
     messages=[
         SystemMessage(
-            content=f"You are an AI that has access to a SQLite database with the following tables:\n{tables}"),
+            content=(
+                "You are an AI that has access to a SQLite database.\n"
+                f"The data is stored in the following tables:\n{tables}\n"
+                "Do not make any assumptions about what tables exist "
+                "or what columns exist. Instead, use the 'describe_tables' tool to get information about the tables."
+            )),
         HumanMessagePromptTemplate.from_template("{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad")
     ]
